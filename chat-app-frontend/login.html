@@ -1,0 +1,32 @@
+<html>
+    <head></head>
+    <body>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+    </body>
+</html>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const res = await fetch("http://localhost:3000/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  });
+
+  const json = await res.json();
+  console.log(json);
+
+  // save token
+  localStorage.setItem("token", json.token);
+});
+    
+</script>
